@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationService.Controllers
@@ -19,6 +20,7 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [Authorize(Policy = "CanDeleteComments")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

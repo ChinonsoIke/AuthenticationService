@@ -18,7 +18,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
 // identity
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanDeleteComments", policy => policy.RequireRole("Admin").RequireRole("moderator"));
+});
 builder.Services.AddIdentityApiEndpoints<AppUser>()
     .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<AppDbContext>();

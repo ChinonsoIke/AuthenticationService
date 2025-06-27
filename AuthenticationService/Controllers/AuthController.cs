@@ -57,5 +57,23 @@ namespace AuthenticationService.Controllers
 
             return Ok();
         }
+
+        [HttpPost("~/roles/users/{userId}/remove")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RemoveUserFromRole(string roleName, Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            if(await _userManager.IsInRoleAsync(user, roleName))
+            {
+                await _userManager.RemoveFromRoleAsync(user, roleName);
+            }
+
+            return Ok();
+        }
     }
 }
