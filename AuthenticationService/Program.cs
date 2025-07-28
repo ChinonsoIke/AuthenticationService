@@ -52,4 +52,6 @@ app.UseAuthorization();
 
 app.MapControllers().RequireAuthorization();
 
+Console.WriteLine("Running auth service");
+
 app.Run();
