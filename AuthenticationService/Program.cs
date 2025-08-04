@@ -22,9 +22,15 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("CanDeleteComments", policy => policy.RequireRole("Admin").RequireRole("moderator"));
 });
-builder.Services.AddIdentityApiEndpoints<AppUser>()
+builder.Services.AddIdentityApiEndpoints<AppUser>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+    })
     .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<AppDbContext>();
+
+Console.WriteLine($"Issuer: {config["Jwt:Issuer"]}");
+Console.WriteLine($"Secret: {config["Jwt:SecretKey"]}");
 
 var app = builder.Build();
 

@@ -13,7 +13,7 @@ namespace AuthenticationService.Data
             var admin = await userManager.FindByEmailAsync("admin@test.com");
             if (admin == null)
             {
-                var result = await userManager.CreateAsync(new AppUser { Email = "admin@test.com", UserName = "admin@test.com", EmailConfirmed = true }, config.GetValue<string>("AdminPassword")!);
+                var result = await userManager.CreateAsync(new AppUser { Email = "admin@test.com", UserName = "admin@test.com", EmailConfirmed = true, FirstName = "John", LastName = "Dorime" }, config.GetValue<string>("AdminPassword")!);
                 admin = await userManager.FindByEmailAsync("admin@test.com");
 
                 if(admin != null)
